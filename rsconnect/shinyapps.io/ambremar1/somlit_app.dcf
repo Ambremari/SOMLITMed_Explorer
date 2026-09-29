@@ -1,0 +1,12 @@
+name: somlit_app
+title: Somlit_app
+username: ambremar1
+account: ambremar1
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11351985
+bundleId: 11406320
+url: https://ambremar1.shinyapps.io/somlit_app/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

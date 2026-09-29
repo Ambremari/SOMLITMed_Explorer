@@ -22,9 +22,9 @@ Savoye Nicolas, Lizon Fabrice, Breton Elsa, Claquin Pascal, Joly Orianne, Sultan
 
 Mediterranean Sea:
 
-- **Marseille**: Frioul, Marseille
-- **Villefranche**: Point B, Villefranche
-- **Banyuls**: Sola, Banyuls
+- **Marseille**: Frioul
+- **Villefranche**: Point B
+- **Banyuls**: Sola
 
 ## References
 

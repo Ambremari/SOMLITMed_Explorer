@@ -2,94 +2,158 @@
 source("main.R")
 
 
-#----- HOME PANELS ----
+# Bloc de texte avec la taille de police commune à toute la page
+body_text <- function(...) {
+  tags$div(style = "font-size: 15px;", ...)
+}
+
+# Lien externe (s'ouvre dans un nouvel onglet)
+# .noWS = "outside" : pas d'espace ajouté avant/après le lien
+# (les espaces éventuels doivent être écrits explicitement dans le texte)
+ext_link <- function(url, label = url) {
+  tags$a(label, href = url, target = "_blank", rel = "noopener noreferrer",
+         .noWS = "outside")
+}
+
+# Onglet d'un site de suivi : titre, image (dossier www/) et description
+# (la description est optionnelle : à remplir plus tard)
+site_panel <- function(tab_title, heading, img, description = NULL) {
+  tabPanel(
+    tab_title,
+    tags$h3(heading),
+    column(7, tags$figure(tags$img(src = img, width = "100%"))),
+    column(5, body_text(description))
+  )
+}
+
+
+# ---- Page d'accueil ---------------------------------------------------------
+
 home_panel <- fluidPage(
   style = "max-width: 1000px; margin: 0 auto;",
+  
   tags$h1("Mediterranean SOMLIT Time Series Explorer"),
+  
+  # -- About ------------------------------------------------------------------
   tags$h2("About"),
-  tags$div(style = "font-size: 15px;", 
-           "This R Shiny app is a visualization tool for exploring time series from the National Observation Service (SNO) SOMLIT (https://somlit.fr). It covers the 2012–2025 period and includes data from three monitoring sites in the northwestern Mediterranean Sea: Marseille, Banyuls and Villefranche.
-
-The monitoring sites are sampled bi-weekly following standardized protocols. The data presented here include surface samples only. Hydrological and biogeochemical variables include temperature, salinity,chlorophyll a,  ammonium, nitrate, nitrite, phosphate and orthosilicic acid. Pico- and nanophytoplankton assemblages are characterized by flow cytometry. All samples are analysed at the BioPIC platform (Observatoire Océanologique de Banyuls, France).
-
-Seven groups are distinguished: RedPicoProk, OraPicoProk, RedPico, OraNano, RedNano, HetHNA and HetLNA. A more detailed description of these groups is provided by Thyssen et al. (2022) and in the Natural Environment Research Council (NERC) Vocabulary Server (https://vocab.nerc.ac.uk/collection/F02/current/).
-
-For more details, please refer to the related documents below."),
+  body_text(
+    tags$p(
+      "This R Shiny app is a visualization tool for exploring time series from
+      the National Observation Service (SNO) SOMLIT (",
+      ext_link("https://somlit.fr"),
+      "). It covers the 2012\u20132025 period and includes data from three
+      monitoring sites in the northwestern Mediterranean Sea: Marseille,
+      Banyuls and Villefranche."
+    ),
+    tags$p(
+      "The monitoring sites are sampled bi-weekly following standardized
+      protocols. The data presented here include surface samples only.
+      Hydrological and biogeochemical variables include temperature, salinity,
+      chlorophyll a, ammonium, nitrate, nitrite, phosphate and orthosilicic
+      acid. Pico- and nanophytoplankton assemblages are characterized by flow
+      cytometry. All samples are analysed at the BioPIC platform (Observatoire
+      Oc\u00e9anologique de Banyuls, France)."
+    ),
+    tags$p(
+      "Seven groups are distinguished: RedPicoProk, OraPicoProk, RedPico,
+      OraNano, RedNano, HetHNA and HetLNA. A more detailed description of these
+      groups is provided by Thyssen et al. (2022) and in the Natural
+      Environment Research Council (NERC) Vocabulary Server (",
+      ext_link("https://vocab.nerc.ac.uk/collection/F02/current/"),
+      ")."
+    ),
+    tags$p("For more details, please refer to the related documents below.")
+  ),
   br(),
+  
+  # -- Related documents ------------------------------------------------------
   tags$h2("Related documents"),
-  tags$div(style = "font-size: 15px;", 
-           "Couteyen Carpaye, M., Nerini, D., Garcia, F., Lagadec, V., Nunige, S., Pecqueur, D., Salmeron, C., Buniak, L., Didry, M., Feuerstein, J.-M., and Grégori, G.: Reconstructing pico- and nanophytoplankton assemblages from long-term coastal thermohaline observations, EGUsphere [preprint], https://doi.org/10.5194/egusphere-2026-3454, 2026."),
+  body_text(
+    "Couteyen Carpaye, M., Nerini, D., Garcia, F., Lagadec, V., Nunige, S.,
+    Pecqueur, D., Salmeron, C., Buniak, L., Didry, M., Feuerstein, J.-M., and
+    Gr\u00e9gori, G.: Reconstructing pico- and nanophytoplankton assemblages
+    from long-term coastal thermohaline observations, EGUsphere [preprint], ",
+    ext_link("https://doi.org/10.5194/egusphere-2026-3454"),
+    ", 2026."
+  ),
   br(),
+  
+  # -- Related dataset --------------------------------------------------------
   tags$h2("Related dataset"),
-  tags$div(style = "font-size: 15px;", 
-           "Savoye Nicolas, Lizon Fabrice, Breton Elsa, Claquin Pascal, Joly Orianne, Sultan Emmanuelle, Jung Jean-Luc, Bozec Yann, Boulart Cédric, Rimmelin-Maury Peggy, Leynaert Aude, Agogué Hélène, Pineau Philippe, Del amo Yolanda, Conan Pascal, Mostajir Behzad, Grégori Gérald, Mousseau Laure, Mendès Fabrice (2026). SOMLIT (Service d'Observation en Milieu Littoral) time series (French Research Infrastructure ILICO): long-term core parameter monitoring of French coasts. SEANOE. https://doi.org/10.17882/100323"),
+  body_text(
+    "Savoye Nicolas, Lizon Fabrice, Breton Elsa, Claquin Pascal, Joly Orianne,
+    Sultan Emmanuelle, Jung Jean-Luc, Bozec Yann, Boulart C\u00e9dric,
+    Rimmelin-Maury Peggy, Leynaert Aude, Agogu\u00e9 H\u00e9l\u00e8ne, Pineau
+    Philippe, Del amo Yolanda, Conan Pascal, Mostajir Behzad, Gr\u00e9gori
+    G\u00e9rald, Mousseau Laure, Mend\u00e8s Fabrice (2026). SOMLIT (Service
+    d'Observation en Milieu Littoral) time series (French Research
+    Infrastructure ILICO): long-term core parameter monitoring of French
+    coasts. SEANOE. ",
+    ext_link("https://doi.org/10.17882/100323")
+  ),
   br(),
+  
+  # -- Monitoring sites -------------------------------------------------------
   tags$h2("Monitoring sites"),
   navlistPanel(
     "Mediterranean Sea",
     br(),
-    tabPanel("Marseille", 
-             tags$h3("Frioul, Marseille"),
-             column(7, tags$figure(
-               tags$img(src = "Marseille.png",
-                        width = "100%"))),
-             column(5, tags$div(style = "font-size: 15px;",
-                                "",
-                                tags$br(),
-                                ""))),
-    tabPanel("Villefranche", 
-             tags$h3("Point B, Villefranche"),
-             column(7, tags$figure(
-               tags$img(src = "Villefranche.png",
-                        width = "100%"))),
-             column(5, tags$div(style = "font-size: 15px;",
-                                "",
-                                tags$br(), 
-                                ""))),
-    tabPanel("Banyuls",
-             tags$h3("Sola, Banyuls"),
-             column(7, tags$figure(
-               tags$img(src = "Banyuls.png",
-                        width = "100%"))),
-             column(5, tags$div(style = "font-size: 15px;",
-                                "",
-                                tags$br(), 
-                                ""))),
+    site_panel("Marseille",    "Frioul, Marseille",    "Marseille.png"),
+    site_panel("Villefranche", "Point B, Villefranche", "Villefranche.png"),
+    site_panel("Banyuls",      "Sola, Banyuls",         "Banyuls.png"),
     widths = c(2, 9)
   ),
   br(),
+  
+  # -- References -------------------------------------------------------------
   tags$h3("References"),
-  tags$div(style = "font-size: 15px;", 
-           "Thyssen M, Grégori G, Créach V, Lahbib S, Dugenne M, Aardema HM, Artigas L-F, Huang B, Barani A, Beaugeard L, Bellaaj-Zouari A, Beran A, Casotti R, Del Amo Y, Denis M, Dubelaar GBJ, Endres S, Haraguchi L, Karlson B, Lambert C, Louchart A, Marie D, Moncoiffé G, Pecqueur D, Ribalet F, Rijkeboer M, Silovic T, Silva R, Marro S, Sosik HM, Sourisseau M, Tarran G, Van Oostende N, Zhao L and Zheng S (2022) Interoperable vocabulary for marine microbial flow cytometry. Front. Mar. Sci. 9:975877. doi: 10.3389/fmars.2022.975877"),
+  body_text(
+    "Thyssen M, Gr\u00e9gori G, Cr\u00e9ach V, Lahbib S, Dugenne M, Aardema HM,
+    Artigas L-F, Huang B, Barani A, Beaugeard L, Bellaaj-Zouari A, Beran A,
+    Casotti R, Del Amo Y, Denis M, Dubelaar GBJ, Endres S, Haraguchi L,
+    Karlson B, Lambert C, Louchart A, Marie D, Moncoiff\u00e9 G, Pecqueur D,
+    Ribalet F, Rijkeboer M, Silovic T, Silva R, Marro S, Sosik HM, Sourisseau
+    M, Tarran G, Van Oostende N, Zhao L and Zheng S (2022) Interoperable
+    vocabulary for marine microbial flow cytometry. ",
+    em("Front. Mar. Sci."),
+    " 9:975877. doi: ",
+    ext_link("https://doi.org/10.3389/fmars.2022.975877",
+             "10.3389/fmars.2022.975877")
+  ),
   br(),
+  
+  # -- Citation ---------------------------------------------------------------
   tags$h3("Citation"),
-  p(
-    "If you use SOMLITMed Explorer in your work, please cite:"
-  ),
-  p(
-    em("Citation to be provided.")
-  ),
+  p("If you use SOMLITMed Explorer in your work, please cite:"),
+  p(em("Citation to be provided.")),
   br(),
+  
+  # -- Funding ----------------------------------------------------------------
   tags$h3("Funding"),
-  tags$div(style = "font-size: 15px;", 
-           "This application was developed as part of the doctoral thesis of Mathilde Couteyen Carpaye at Aix-Marseille University, within the CYTOMED project. The project was co-funded by the French Office for Biodiversity (OFB) and the Rhône-Méditerranée-Corse Water Agency (AERMC)."),
+  body_text(
+    "This application was developed as part of the doctoral thesis of Mathilde
+    Couteyen Carpaye at Aix-Marseille University, within the CYTOMED project.
+    The project was co-funded by the French Office for Biodiversity (OFB) and
+    the Rh\u00f4ne-M\u00e9diterran\u00e9e-Corse Water Agency (AERMC)."
+  ),
   br(),
+  
+  # -- Contact ----------------------------------------------------------------
   tags$h3("Contact"),
   p(
     strong("Mathilde Couteyen Carpaye"),
     br(),
-    "PhD student – Mediterranean Institute of Oceanography (MIO)",
+    "PhD student \u2013 Mediterranean Institute of Oceanography (MIO)",
     br(),
-    "Aix-Marseille Université"
+    "Aix-Marseille Universit\u00e9"
   ),
   p(
     "For questions, comments or technical issues, please contact ",
-    a(
-      "mathilde.couteyen@mio.osupytheas.fr",
-      href = "mathilde.couteyen@mio.osupytheas.fr"
-    ),
+    a("mathilde.couteyen@mio.osupytheas.fr",
+      href = "mailto:mathilde.couteyen@mio.osupytheas.fr",
+      .noWS = "outside"),
     "."
-  ),
+  )
 )
 
 # HOME TAB ----

@@ -1,4 +1,4 @@
-# Mediterranean SOMLIT Time Series Explorer
+# SOMLITMed Explorer: Mediterranean SOMLIT Time Series Explorer
 
 ## About
 

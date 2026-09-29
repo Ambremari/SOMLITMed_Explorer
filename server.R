@@ -1,4 +1,3 @@
-source("main.R")
 
 function(input, output, session) {
   #------ reactive values

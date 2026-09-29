@@ -1,6 +1,4 @@
 ### User Interface 
-source("main.R")
-
 
 # Bloc de texte avec la taille de police commune à toute la page
 body_text <- function(...) {

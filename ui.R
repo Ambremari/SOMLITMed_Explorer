@@ -123,7 +123,9 @@ home_panel <- fluidPage(
   # -- Citation ---------------------------------------------------------------
   tags$h3("Citation"),
   p("If you use SOMLITMed Explorer in your work, please cite:"),
-  p(em("Citation to be provided.")),
+  p(em("Couteyen Carpaye, M. (2026). SOMLITMed Explorer [Computer software]. Zenodo.",
+       ext_link("https://doi.org/10.5281/zenodo.23039092")
+  )),
   br(),
   
   # -- Funding ----------------------------------------------------------------

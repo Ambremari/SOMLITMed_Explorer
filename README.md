@@ -34,7 +34,7 @@ Thyssen M, Grégori G, Créach V, Lahbib S, Dugenne M, Aardema HM, Artigas L-F, 
 
 If you use SOMLITMed Explorer in your work, please cite:
 
-*Citation to be provided.*
+Couteyen Carpaye, M. (2026). SOMLITMed Explorer (Version v1.0) [Computer software]. Zenodo. <https://doi.org/10.5281/zenodo.23039093>
 
 ## Funding
 
